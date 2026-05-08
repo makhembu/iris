@@ -11,7 +11,7 @@
     "feed:ingest": "tsx src/feeds/runner.ts",
     "db:init": "tsx src/db/init.ts",
     "lint": "tsc --noEmit",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+    "test": "npx tsx --test tests/*.test.ts"
   },
   "keywords": [
     "threat-intelligence",
