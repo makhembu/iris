@@ -123,3 +123,18 @@ Aggregating threat intel across feeds lets SOC analysts correlate sightings, red
 - [ ] STIX/TAXII export
 - [ ] Enrichment pipeline (ASN lookup, WHOIS, GeoIP)
 - [ ] Webhook alert forwarding
+
+## Ecosystem
+
+Part of a [threat intelligence ecosystem](ECOSYSTEM.md) that spans detection, analysis, anomaly detection, incident correlation, and a unified dashboard:
+
+| Service | Port | Description |
+|---------|------|-------------|
+| **iris** | **3000** | **IOC aggregation** |
+| [sentry](https://github.com/makhembu/sentry) | 3001 | Detection rules |
+| [phishkit](https://github.com/makhembu/phishkit) | 3002 | Phishing analysis |
+| [packetwatch](https://github.com/makhembu/packetwatch) | 3003 | Anomaly detection |
+| [trace](https://github.com/makhembu/trace) | 3004 | Incident correlation |
+| [nexus](https://github.com/makhembu/nexus) | 3100 | Dashboard & gateway |
+
+Use `threat-stack.ps1` from the repo root to run all services: `.\threat-stack.ps1 start`
