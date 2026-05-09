@@ -14,6 +14,33 @@ npm start
 # Server running at http://localhost:3000
 ```
 
+## Architecture
+
+```mermaid
+flowchart LR
+    Feeds["Threat Feeds<br/>OTX, URLhaus, PhishTank"] --> Iris["iris (this service)<br/>IOC Aggregation<br/>Port 3000"]
+    Iris --> Sentry["sentry<br/>Detection Rules<br/>Port 3001"]
+    Iris --> PhishKit["phishkit<br/>Phishing Analysis<br/>Port 3002"]
+    Iris --> PacketWatch["packetwatch<br/>Anomaly Detection<br/>Port 3003"]
+    Sentry --> Trace["trace<br/>Incident Correlation<br/>Port 3004"]
+    PhishKit --> Trace
+    PacketWatch --> Trace
+    Trace --> Nexus["nexus<br/>Dashboard & Gateway<br/>Port 3100"]
+```
+
+iris ingests raw threat feeds, deduplicates and scores IOCs, then feeds downstream services for detection, analysis, and correlation.
+
+## Docker
+
+```bash
+# Build and run standalone
+docker build -t iris .
+docker run -p 3000:3000 iris
+
+# Run the full ecosystem
+docker compose -f ../nexus/docker-compose.yml up
+```
+
 ## Feed Ingestion
 
 ```bash
